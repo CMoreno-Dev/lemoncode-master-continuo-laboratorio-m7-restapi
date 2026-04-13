@@ -15,11 +15,20 @@ app.use(logger());
 app.use('/api/*', cors());
 
 app.get('/api/character', async (context) => {
+  const name = context.req.query('name');
+  let filteredCharacters = db.characters;
+  
+  if (name) {
+    filteredCharacters = db.characters.filter((c) =>
+      c.name.toLowerCase().includes(name.toLowerCase())
+    );
+  }
+  
   const response: CharacterListResponse = {
     info: {
-      count: db.characters.length,
+      count: filteredCharacters.length,
     },
-    results: db.characters,
+    results: filteredCharacters,
   };
   return context.json(response);
 });

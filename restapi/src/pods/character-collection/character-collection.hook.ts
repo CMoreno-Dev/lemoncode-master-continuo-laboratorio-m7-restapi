@@ -8,12 +8,18 @@ export const useCharacterCollection = () => {
   const [characterCollection, setCharacterCollection] = React.useState<CharacterEntityVm[]>(
     []
   );
+  const [search, setSearch] = React.useState('');
 
-  const loadCharacterCollection = () => {
-    getCharacterCollection().then((result) =>
+  const loadCharacterCollection = (searchTerm: string = '') => {
+    getCharacterCollection(searchTerm).then((result) =>
       setCharacterCollection(mapToCollection(result, mapFromApiToVm))
     );
   };
 
-  return { characterCollection, loadCharacterCollection };
+  const onSearch = (searchTerm: string) => {
+    setSearch(searchTerm);
+    loadCharacterCollection(searchTerm);
+  };
+
+  return { characterCollection, loadCharacterCollection, search, onSearch };
 };
