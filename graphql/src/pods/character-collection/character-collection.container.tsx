@@ -5,7 +5,7 @@ import { useCharacterCollection } from './character-collection.hook';
 import { CharacterCollectionComponent } from './character-collection.component';
 
 export const CharacterCollectionContainer = () => {
-  const { characterCollection, loadCharacterCollection } = useCharacterCollection();
+  const { characterCollection, page, totalPages, loading, loadPage, loadCharacterCollection } = useCharacterCollection();
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -16,10 +16,18 @@ export const CharacterCollectionContainer = () => {
     navigate(linkRoutes.character(id));
   };
 
+  const handlePageChange = (pageNumber: number) => {
+    loadPage(pageNumber);
+  };
+
   return (
     <CharacterCollectionComponent
       characterCollection={characterCollection}
+      page={page}
+      totalPages={totalPages}
+      loading={loading}
       onNavigate={handleNavigate}
+      onPageChange={handlePageChange}
     />
   );
 };

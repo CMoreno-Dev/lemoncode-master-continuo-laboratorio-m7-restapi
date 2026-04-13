@@ -4,16 +4,31 @@ import { getCharacterCollection } from './api';
 import { mapFromApiToVm } from './character-collection.mapper';
 import { mapToCollection } from '#common/mappers';
 
-export const useCharacterCollection = () => {
-  const [characterCollection, setCharacterCollection] = React.useState<CharacterEntityVm[]>(
-    []
-  );
+const ITEMS_PER_PAGE = 5;
 
-  const loadCharacterCollection = () => {
-    getCharacterCollection().then((result) =>
-      setCharacterCollection(mapToCollection(result, mapFromApiToVm))
-    );
+export const useCharacterCollection = () => {
+  const [characterCollection, setCharacterCollection] = React.useState<CharacterEntityVm[]>([]);
+  const [page, setPage] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState(0);
+  const [loading, setLoading] = React.useState(false);
+
+  const loadPage = (pageNumber: number) => {
+    setLoading(true);
+    getCharacterCollection(pageNumber).then((result) => {
+      const allCharacters = mapToCollection(result.characters, mapFromApiToVm);
+      const slicedCharacters = allCharacters.slice(0, ITEMS_PER_PAGE);
+      const calculatedTotalPages = Math.ceil(result.info.count / ITEMS_PER_PAGE);
+      
+      setCharacterCollection(slicedCharacters);
+      setTotalPages(calculatedTotalPages);
+      setPage(pageNumber);
+      setLoading(false);
+    });
   };
 
-  return { characterCollection, loadCharacterCollection };
+  const loadCharacterCollection = () => {
+    loadPage(1);
+  };
+
+  return { characterCollection, page, totalPages, loading, loadPage, loadCharacterCollection };
 };

@@ -11,3 +11,9 @@ export const list = css`
   list-style: none;
   padding: 0;
 `;
+
+export const pagination = css`
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+`;
