@@ -4,6 +4,13 @@ export const root = css`
   padding: 1rem;
 `;
 
+export const search = css`
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+`;
+
 export const list = css`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

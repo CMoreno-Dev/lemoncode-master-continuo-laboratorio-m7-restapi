@@ -3,8 +3,8 @@ import { CharacterEntityApi, CharacterCollectionResponse } from './character-col
 const GRAPHQL_ENDPOINT = 'https://rickandmortyapi.com/graphql';
 
 const GET_CHARACTERS_QUERY = `
-  query($page: Int) {
-    characters(page: $page) {
+  query($page: Int, $filter: String) {
+    characters(page: $page, filter: { name: $filter }) {
       info {
         pages
         count
@@ -29,7 +29,7 @@ const GET_CHARACTERS_QUERY = `
   }
 `;
 
-export const getCharacterCollection = async (page: number = 1): Promise<CharacterCollectionResponse> => {
+export const getCharacterCollection = async (page: number = 1, filter: string = ''): Promise<CharacterCollectionResponse> => {
   const response = await fetch(GRAPHQL_ENDPOINT, {
     method: 'POST',
     headers: {
@@ -37,7 +37,7 @@ export const getCharacterCollection = async (page: number = 1): Promise<Characte
     },
     body: JSON.stringify({
       query: GET_CHARACTERS_QUERY,
-      variables: { page },
+      variables: { page, filter: filter || null },
     }),
   });
 

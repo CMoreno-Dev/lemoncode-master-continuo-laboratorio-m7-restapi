@@ -11,10 +11,11 @@ export const useCharacterCollection = () => {
   const [page, setPage] = React.useState(1);
   const [totalPages, setTotalPages] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
+  const [search, setSearch] = React.useState('');
 
-  const loadPage = (pageNumber: number) => {
+  const loadPage = (pageNumber: number, searchTerm: string = search) => {
     setLoading(true);
-    getCharacterCollection(pageNumber).then((result) => {
+    getCharacterCollection(pageNumber, searchTerm).then((result) => {
       const allCharacters = mapToCollection(result.characters, mapFromApiToVm);
       const slicedCharacters = allCharacters.slice(0, ITEMS_PER_PAGE);
       const calculatedTotalPages = Math.ceil(result.info.count / ITEMS_PER_PAGE);
@@ -27,8 +28,13 @@ export const useCharacterCollection = () => {
   };
 
   const loadCharacterCollection = () => {
-    loadPage(1);
+    loadPage(1, search);
   };
 
-  return { characterCollection, page, totalPages, loading, loadPage, loadCharacterCollection };
+  const onSearch = (searchTerm: string) => {
+    setSearch(searchTerm);
+    loadPage(1, searchTerm);
+  };
+
+  return { characterCollection, page, totalPages, loading, loadPage, loadCharacterCollection, search, onSearch };
 };
