@@ -10,17 +10,15 @@ Este repositorio contiene la solución de los ejercicios entregables del laborat
 
 ## 📂 Estructura del Módulo
 
-El módulo se ha organizado en un proyecto:
-
-| Directorio | Proyecto | Descripción |
-| :--- | :--- | :--- |
-| `src` | Rick & Morty Characters | Aplicación de gestión de personajes de Rick & Morty |
+El módulo contiene dos proyectos:
+- `restapi/` - Ejercicio obligatorio y opcional (REST API)
+- `graphql/` - Ejercicio opcional (GraphQL)
 
 ---
 
 ## 📋 Contenido del Proyecto
 
-### Rick & Morty Characters
+### Rick & Morty Characters (restapi)
 
 Proyecto de React que implementa una aplicación de gestión de personajes de la serie Rick & Morty con API REST.
 
@@ -30,44 +28,11 @@ Proyecto de React que implementa una aplicación de gestión de personajes de la
 - Campo editable para guardar "bestSentence" del personaje
 - Servidor mock local para simular escrituras (PUT)
 
-**Estructura:**
-```
-src/
-├── scenes/
-│   ├── character-collection.scene.tsx
-│   └── character.scene.tsx
-├── pods/
-│   ├── character-collection/
-│   │   ├── api/
-│   │   │   ├── character-collection.api.ts
-│   │   │   └── character-collection.api-model.ts
-│   │   ├── character-collection.component.tsx
-│   │   ├── character-collection.container.tsx
-│   │   ├── character-collection.hook.ts
-│   │   ├── character-collection.mapper.ts
-│   │   ├── character-collection.vm.ts
-│   │   └── components/
-│   │       └── character-card.component.tsx
-│   └── character/
-│       ├── api/
-│       │   ├── character.api.ts
-│       │   └── character.api-model.ts
-│       ├── character.component.tsx
-│       ├── character.container.tsx
-│       ├── character.hook.ts
-│       ├── character.mapper.ts
-│       └── character.vm.ts
-├── core/
-│   └── router/
-│       ├── routes.ts
-│       └── router.component.tsx
-└── layouts/
-    └── app.layout.tsx
-```
+**Estructura:** Proyectos `restapi/` y `graphql/`
 
 **APIs utilizadas:**
 - Rick and Morty API: `https://rickandmortyapi.com/api/character`
-- Servidor mock local: `http://localhost:3000/api/character` (carpeta server)
+- Servidor mock local: `http://localhost:3000/api/character`
 
 ---
 
@@ -88,7 +53,6 @@ src/
 - React con TypeScript
 - Fetch API para consumo de REST API
 - React Router para navegación
-- Patrón Container/Component
 - Separación de capas (pods, scenes, API)
 - Servidor mock con Hono
 
@@ -97,9 +61,8 @@ src/
 | **React 19** | Framework principal para la interfaz de usuario |
 | **TypeScript** | Tipado estático |
 | **Vite** | Build tool y servidor de desarrollo |
-| **React Router** | Enrutamiento y navegación |
+| **React Router 7** | Enrutamiento y navegación |
 | **MUI** | Biblioteca de componentes |
-| **Emotion** | Sistema de estilos |
 | **Hono** | Framework para servidor mock |
 
 ---
@@ -108,20 +71,9 @@ src/
 
 ```bash
 # Instalar dependencias
+cd restapi
 npm install
 
 # Iniciar servidor de desarrollo y mock
 npm start
 ```
-
----
-
-## 📝 Ejercicios
-
-### Ejercicio 1
-- Consumir API de Rick & Morty para obtener lista de personajes
-- Mostrar detalles del personaje al navegar
-
-### Ejercicio 2
-- Cambiar endpoints al servidor mock local
-- Implementar guardado de campo `bestSentence` (PUT)
